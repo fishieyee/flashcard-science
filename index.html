@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSLE Science Flashcards</title>
+
+<!-- Google Fonts: Poppins (concept header) + Inter (body text) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     THEME — Warm, muted, pastel-based for reduced eye strain
+     Charcoal text (never pure black) on soft pastel backgrounds
+     ============================================================ */
+  /* ============================================================
+     TYPOGRAPHY SYSTEM
+     --font-head: Poppins (concept header — geometric, wide, bold)
+     --font-body: Inter (explanation — tall x-height, highly readable)
+     ============================================================ */
+  :root {
+    --font-head: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+    --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+    /* Base */
+    --bg: #F7F5F0;              /* warm off-white canvas */
+    --text: #3A3530;            /* charcoal — never pure black */
+    --text-muted: #8C8480;      /* muted warm grey */
+    --border: #E2DDD5;          /* soft warm border */
+    --radius: 14px;
+
+    /* Topic palettes — each has bg, badge-bg, badge-text, accent, front-bg, back-bg, back-border */
+    --Cycles-bg: #D6E8F4;       /* Soft Blue */
+    --Cycles-badge-bg: #B8D4E8;
+    --Cycles-badge-text: #2B5C80;
+    --Cycles-accent: #4A90C4;
+    --Cycles-front: #EAF2F9;
+    --Cycles-back: #F0F6FB;
+    --Cycles-border: #C4DCEC;
+
+    --Systems-bg: #E8E0D0;      /* Warm Beige */
+    --Systems-badge-bg: #D9CFB8;
+    --Systems-badge-text: #6B5D44;
+    --Systems-accent: #A0895E;
+    --Systems-front: #F2EBDE;
+    --Systems-back: #F7F1E6;
+    --Systems-border: #E0D5C0;
+
+    --Interactions-bg: #F5DCE0; /* Soft Pink / Peach */
+    --Interactions-badge-bg: #E8C5CC;
+    --Interactions-badge-text: #8B3A48;
+    --Interactions-accent: #C4707E;
+    --Interactions-front: #FAEBEE;
+    --Interactions-back: #FBF0F2;
+    --Interactions-border: #ECD0D5;
+
+    --Diversity-bg: #D5E8D8;    /* Mint Green */
+    --Diversity-badge-bg: #B8D9BD;
+    --Diversity-badge-text: #2D5E35;
+    --Diversity-accent: #5BA064;
+    --Diversity-front: #EAF5EC;
+    --Diversity-back: #F0F7F1;
+    --Diversity-border: #C8DEC9;
+
+    --Energy-bg: #F0E8D8;       /* Golden Yellow (warm, muted) */
+    --Energy-badge-bg: #E0D4B8;
+    --Energy-badge-text: #6B5520;
+    --Energy-accent: #B8985E;
+    --Energy-front: #F7F0E0;
+    --Energy-back: #FAF5EA;
+    --Energy-border: #EBDCC0;
+
+    /* MOE keyword highlight — bold inline within answer text */
+    --kw-bg: #FFF3D6;
+    --kw-text: #7A5C10;
+    --kw-border: #E8D490;
+
+    /* Shadows — soft, warm-toned */
+    --shadow: 0 3px 8px -2px rgba(58,53,48,0.12), 0 2px 4px -1px rgba(58,53,48,0.06);
+    --shadow-lg: 0 8px 20px -4px rgba(58,53,48,0.15), 0 4px 8px -2px rgba(58,53,48,0.08);
+
+    --keyword-tag-bg: #FDF6E3;
+    --keyword-tag-text: #6B5520;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ============================================================
+     HEADER — warm gradient using topic tones
+     ============================================================ */
+  header {
+    background: linear-gradient(135deg, #D6E8F4 0%, #D5E8D8 25%, #F0E8D8 50%, #F5DCE0 75%, #E8E0D0 100%);
+    color: var(--text);
+    padding: 32px 20px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #4A4038;
+  }
+  header p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ============================================================
+     FILTER BAR
+     ============================================================ */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 20px;
+    background: #FAF8F4;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(58,53,48,0.06);
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--border);
+    border-radius: 999px;
+    background: white;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .filter-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .filter-btn.active { color: white; border-color: transparent; }
+  .filter-btn[data-topic="All"].active { background: #8C8480; }
+  .filter-btn[data-topic="Cycles"].active { background: var(--Cycles-accent); }
+  .filter-btn[data-topic="Systems"].active { background: var(--Systems-accent); }
+  .filter-btn[data-topic="Interactions"].active { background: var(--Interactions-accent); }
+  .filter-btn[data-topic="Diversity"].active { background: var(--Diversity-accent); }
+  .filter-btn[data-topic="Energy"].active { background: var(--Energy-accent); }
+
+  .filter-btn .count {
+    background: rgba(0,0,0,0.06);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 0.74rem;
+  }
+  .filter-btn.active .count { background: rgba(255,255,255,0.3); }
+
+  /* ============================================================
+     CONTROLS BAR
+     ============================================================ */
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    background: #FAF8F4;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .progress-text { font-family: var(--font-body); font-size: 0.84rem; color: var(--text-muted); font-weight: 600; }
+  .action-btns { display: flex; gap: 8px; }
+  .action-btn {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    color: var(--text);
+  }
+  .action-btn:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+  .action-btn.flip-all { background: #F0F6FB; color: #2B5C80; border-color: #C4DCEC; }
+  .action-btn.shuffle { background: #FAEBEE; color: #8B3A48; border-color: #ECD0D5; }
+
+  /* ============================================================
+     CARDS GRID
+     ============================================================ */
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+    gap: 24px;
+    padding: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ============================================================
+     FLASHCARD — 3D flip
+     ============================================================ */
+  .flashcard {
+    perspective: 1000px;
+    height: 360px;
+    cursor: pointer;
+  }
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: none;
+  }
+
+  /* ============================================================
+     CARD FRONT — Question side (Concept Header)
+     Poppins Bold, centered, large — dominates the card
+     Minimal borders, generous negative space
+     ============================================================ */
+  .card-front {
+    background: white;
+    border-top: none;
+  }
+
+  /* Topic-specific front backgrounds (no border decorations) */
+  .card-front.t-Cycles { background: var(--Cycles-front); }
+  .card-front.t-Systems { background: var(--Systems-front); }
+  .card-front.t-Interactions { background: var(--Interactions-front); }
+  .card-front.t-Diversity { background: var(--Diversity-front); }
+  .card-front.t-Energy { background: var(--Energy-front); }
+
+  .card-front .topic-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
+    width: fit-content;
+    align-self: center;
+  }
+  .card-front .card-num {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    opacity: 0.35;
+  }
+  .card-front .question-label {
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 0;
+    color: var(--text-muted);
+    text-align: center;
+    opacity: 0.6;
+  }
+  .card-front .question-text {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 8px;
+  }
+  .card-front .visual-cue {
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-front .hint {
+    margin-top: auto;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 400;
+    opacity: 0.55;
+  }
+
+  /* Topic badge colors */
+  .badge-Cycles { background: var(--Cycles-badge-bg); color: var(--Cycles-badge-text); }
+  .badge-Systems { background: var(--Systems-badge-bg); color: var(--Systems-badge-text); }
+  .badge-Interactions { background: var(--Interactions-badge-bg); color: var(--Interactions-badge-text); }
+  .badge-Diversity { background: var(--Diversity-badge-bg); color: var(--Diversity-badge-text); }
+  .badge-Energy { background: var(--Energy-badge-bg); color: var(--Energy-badge-text); }
+
+  /* ============================================================
+     CARD BACK — Answer side (Explanation Body)
+     Inter font, smaller than header, highly readable
+     MOE keywords: bold weight only — no background, no italics
+     Clean negative space, minimal borders
+     ============================================================ */
+  .card-back {
+    transform: rotateY(180deg);
+    border-top: none;
+  }
+  .card-back.t-Cycles { background: var(--Cycles-back); }
+  .card-back.t-Systems { background: var(--Systems-back); }
+  .card-back.t-Interactions { background: var(--Interactions-back); }
+  .card-back.t-Diversity { background: var(--Diversity-back); }
+  .card-back.t-Energy { background: var(--Energy-back); }
+
+  .card-back .answer-label {
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+  .card-back .answer-text {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text);
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  /* Bullet points in answer */
+  .card-back .answer-text ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 4px 0;
+  }
+  .card-back .answer-text ul li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 7px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .card-back .answer-text ul li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 9px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.35;
+  }
+
+  /* MOE keyword — BOLD ONLY, no background, no border, no italics
+     Same body font (Inter), just heavier weight to draw the eye */
+  .kw {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--text);
+    font-style: normal;
+  }
+
+  .card-back .diagram {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Keywords summary section — minimal, clean */
+  .card-back .keywords-section {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .card-back .keywords-label {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    opacity: 0.5;
+  }
+  .card-back .keyword-tag {
+    display: inline-block;
+    background: transparent;
+    color: var(--text);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin: 2px 2px;
+    border: none;
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  footer .kw-demo {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 640px) {
+    .cards-container { grid-template-columns: 1fr; padding: 16px; }
+    .flashcard { height: 320px; }
+    header h1 { font-size: 1.4rem; }
+    .filter-btn { font-size: 0.78rem; padding: 6px 12px; }
+    .card-front .question-text { font-size: 1.25rem; }
+  }
+
+  /* Card load animation */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .flashcard { animation: fadeInUp 0.4s ease forwards; opacity: 0; }
+
+  /* Custom scrollbar for answer text */
+  .answer-text::-webkit-scrollbar { width: 4px; }
+  .answer-text::-webkit-scrollbar-track { background: transparent; }
+  .answer-text::-webkit-scrollbar-thumb { background: rgba(140,132,128,0.3); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PSLE Science Flashcards</h1>
+  <p>Cycles &middot; Systems &middot; Interactions &middot; Diversity &middot; Energy</p>
+</header>
+
+<nav class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-topic="All">All <span class="count" id="count-All">0</span></button>
+  <button class="filter-btn" data-topic="Cycles">Cycles <span class="count" id="count-Cycles">0</span></button>
+  <button class="filter-btn" data-topic="Systems">Systems <span class="count" id="count-Systems">0</span></button>
+  <button class="filter-btn" data-topic="Interactions">Interactions <span class="count" id="count-Interactions">0</span></button>
+  <button class="filter-btn" data-topic="Diversity">Diversity <span class="count" id="count-Diversity">0</span></button>
+  <button class="filter-btn" data-topic="Energy">Energy <span class="count" id="count-Energy">0</span></button>
+</nav>
+
+<div class="controls">
+  <span class="progress-text" id="progressText">Showing all flashcards</span>
+  <div class="action-btns">
+    <button class="action-btn flip-all" id="flipAllBtn">Flip All</button>
+    <button class="action-btn shuffle" id="shuffleBtn">Shuffle</button>
+  </div>
+</div>
+
+<main class="cards-container" id="cardsContainer"></main>
+
+<footer>
+  <p>Tap any card to flip. <span class="kw-demo">Bold</span> text = crucial MOE marking keywords for full marks.</p>
+  <p style="margin-top:4px;">Organized by topic for daily 10-minute review sessions.</p>
+</footer>
+
+<script>
+// ============================================================
+// PSLE SCIENCE FLASHCARD DATA
+// Topics: Cycles (Soft Blue), Systems (Warm Beige),
+//   Interactions (Soft Pink), Diversity (Mint Green), Energy (Golden Yellow)
+// Answers use bullet points with MOE keywords bolded inline
+// ============================================================
+
+const flashcardData = [
+
+// ========================== CYCLES (Soft Blue) ==========================
+{
+  topic: "Cycles",
+  q: "What process allows plants to make their own food?",
+  a: `<ul>
+    <li>The process is <span class="kw">photosynthesis</span>.</li>
+    <li>Plants use <span class="kw">light energy</span> from the Sun, <span class="kw">carbon dioxide</span> from the air, and <span class="kw">water</span> from the soil.</li>
+    <li><span class="kw">Chlorophyll</span> in the leaves traps <span class="kw">light energy</span> to carry out the process.</li>
+    <li>The products are <span class="kw">glucose (sugar)</span> and <span class="kw">oxygen</span>.</li>
+  </ul>`,
+  keywords: ["photosynthesis", "light energy", "carbon dioxide", "water", "chlorophyll", "glucose", "oxygen"],
+  diagram: "photosynthesis"
+},
+{
+  topic: "Cycles",
+  q: "What is the water cycle? Name its four main processes.",
+  a: `<ul>
+    <li>The water cycle is the <span class="kw">continuous movement of water</span> between the Earth's surface and the atmosphere.</li>
+    <li><span class="kw">Evaporation</span> — water gains heat and turns into <span class="kw">water vapour</span>.</li>
+    <li><span class="kw">Condensation</span> — water vapour loses heat and forms clouds.</li>
+    <li><span class="kw">Precipitation</span> — rain/snow falls from clouds.</li>
+    <li><span class="kw">Collection</span> — water flows back into rivers, lakes and seas.</li>
+  </ul>`,
+  keywords: ["evaporation", "condensation", "precipitation", "collection", "water vapour", "gains heat", "loses heat"],
+  diagram: "watercycle"
+},
+{
+  topic: "Cycles",
+  q: "Why is the water cycle important?",
+  a: `<ul>
+    <li>Ensures a <span class="kw">continuous supply</span> of fresh water on Earth.</li>
+    <li><span class="kw">Distributes water</span> to different areas, including land far from seas.</li>
+    <li><span class="kw">Regulates temperature</span> through evaporation (cooling) and condensation (warming).</li>
+    <li><span class="kw">Sustains life</span> — plants, animals and humans all depend on it.</li>
+  </ul>`,
+  keywords: ["continuous supply", "distributes water", "regulates temperature", "sustains life"]
+},
+{
+  topic: "Cycles",
+  q: "What are the four stages of a butterfly's life cycle?",
+  a: `<ul>
+    <li>The butterfly goes through <span class="kw">complete metamorphosis</span> with four stages:</li>
+    <li><span class="kw">Egg</span> &rarr; <span class="kw">Larva (caterpillar)</span> &rarr; <span class="kw">Pupa (chrysalis)</span> &rarr; <span class="kw">Adult butterfly</span>.</li>
+    <li>The young looks <span class="kw">very different</span> from the adult.</li>
+  </ul>`,
+  keywords: ["complete metamorphosis", "egg", "larva", "pupa", "adult", "very different"],
+  diagram: "butterfly"
+},
+{
+  topic: "Cycles",
+  q: "What is the difference between complete and incomplete metamorphosis?",
+  a: `<ul>
+    <li><b>Complete metamorphosis</b> (e.g. butterfly, mosquito): four stages &mdash; <span class="kw">egg &rarr; larva &rarr; pupa &rarr; adult</span>. The young looks completely different from the adult.</li>
+    <li><b>Incomplete metamorphosis</b> (e.g. grasshopper, cockroach): three stages &mdash; <span class="kw">egg &rarr; nymph &rarr; adult</span>. The nymph <span class="kw">resembles</span> the adult but is smaller and has no wings.</li>
+  </ul>`,
+  keywords: ["complete metamorphosis", "incomplete metamorphosis", "larva", "pupa", "nymph", "resembles"]
+},
+{
+  topic: "Cycles",
+  q: "What are the stages of the human life cycle?",
+  a: `<ul>
+    <li><span class="kw">Foetus</span> (in the mother's womb) &rarr;</li>
+    <li><span class="kw">Infant</span> &rarr; <span class="kw">Child</span> &rarr;</li>
+    <li><span class="kw">Adolescent</span> (puberty) &rarr; <span class="kw">Adult</span> &rarr; <span class="kw">Elderly</span>.</li>
+    <li>Reproduction occurs in the <span class="kw">adult stage</span>.</li>
+  </ul>`,
+  keywords: ["foetus", "infant", "child", "adolescent", "puberty", "adult", "elderly"]
+},
+{
+  topic: "Cycles",
+  q: "What is pollination and how does it differ from fertilisation?",
+  a: `<ul>
+    <li><span class="kw">Pollination</span> is the transfer of pollen from the <span class="kw">anther</span> (male part) to the <span class="kw">stigma</span> (female part) of a flower.</li>
+    <li>It can be <span class="kw">wind-pollinated</span> or <span class="kw">insect-pollinated</span>.</li>
+    <li><span class="kw">Fertilisation</span> is the <span class="kw">fusing</span> of the male reproductive cell with the female reproductive cell in the <span class="kw">ovule</span>, forming a <span class="kw">seed</span>.</li>
+  </ul>`,
+  keywords: ["pollination", "anther", "stigma", "fertilisation", "fusing", "ovule", "seed"],
+  diagram: "flower"
+},
+{
+  topic: "Cycles",
+  q: "How are wind-pollinated flowers different from insect-pollinated flowers?",
+  a: `<ul>
+    <li><b>Insect-pollinated:</b> Large, bright <span class="kw">petals</span>; sweet scent; nectar; <span class="kw">sticky stigma</span>; pollen is sticky/spiky to cling to insects.</li>
+    <li><b>Wind-pollinated:</b> Small, dull petals (green/brown); no scent or nectar; <span class="kw">long feathery stigma</span> to catch pollen in the air; large amounts of <span class="kw">light, smooth pollen</span>; <span class="kw">anthers hang outside</span> the flower.</li>
+  </ul>`,
+  keywords: ["insect-pollinated", "wind-pollinated", "petals", "sticky stigma", "feathery stigma", "anthers hang outside", "light smooth pollen"]
+},
+{
+  topic: "Cycles",
+  q: "What causes day and night on Earth?",
+  a: `<ul>
+    <li>Day and night are caused by the Earth <span class="kw">rotating on its axis</span> (spinning).</li>
+    <li>The side of Earth <span class="kw">facing the Sun</span> experiences <span class="kw">daytime</span>.</li>
+    <li>The side <span class="kw">facing away</span> from the Sun experiences <span class="kw">night-time</span>.</li>
+    <li>One full rotation takes <span class="kw">24 hours</span>.</li>
+  </ul>`,
+  keywords: ["rotating on its axis", "facing the Sun", "daytime", "night-time", "24 hours"]
+},
+{
+  topic: "Cycles",
+  q: "What causes the four seasons on Earth?",
+  a: `<ul>
+    <li>Seasons are caused by the Earth's <span class="kw">tilted axis</span> (23.5&deg;) as it <span class="kw">revolves around the Sun</span>.</li>
+    <li>When a hemisphere tilts <span class="kw">towards the Sun</span>, it experiences <span class="kw">summer</span> (more direct sunlight, longer days).</li>
+    <li>When a hemisphere tilts <span class="kw">away from the Sun</span>, it experiences <span class="kw">winter</span> (less direct sunlight, shorter days).</li>
+    <li>Spring and autumn are the <span class="kw">transition seasons</span>.</li>
+  </ul>`,
+  keywords: ["tilted axis", "revolves around the Sun", "towards the Sun", "summer", "away from the Sun", "winter"]
+},
+
+// ========================== SYSTEMS (Warm Beige) ==========================
+{
+  topic: "Systems",
+  q: "What are the main parts of the human circulatory system and their functions?",
+  a: `<ul>
+    <li><span class="kw">Heart</span> &mdash; pumps blood throughout the body.</li>
+    <li><span class="kw">Blood vessels</span> &mdash; arteries carry blood <span class="kw">away from the heart</span>; veins carry blood <span class="kw">back to the heart</span>; capillaries allow <span class="kw">exchange of substances</span>.</li>
+    <li><span class="kw">Blood</span> &mdash; carries <span class="kw">oxygen</span>, digested food and water to cells, and carries <span class="kw">waste</span> away.</li>
+  </ul>`,
+  keywords: ["heart", "blood vessels", "arteries", "veins", "capillaries", "away from the heart", "back to the heart", "exchange of substances"],
+  diagram: "circulatory"
+},
+{
+  topic: "Systems",
+  q: "What are the differences between arteries and veins?",
+  a: `<ul>
+    <li><b>Arteries:</b> Carry blood <span class="kw">away from the heart</span>; have <span class="kw">thick, elastic walls</span> to withstand high pressure; carry <span class="kw">oxygen-rich blood</span> (except pulmonary artery).</li>
+    <li><b>Veins:</b> Carry blood <span class="kw">back to the heart</span>; have <span class="kw">thinner walls</span> and <span class="kw">valves</span> to prevent backflow; carry <span class="kw">oxygen-poor blood</span> (except pulmonary vein).</li>
+  </ul>`,
+  keywords: ["away from the heart", "back to the heart", "thick elastic walls", "thinner walls", "valves", "oxygen-rich", "oxygen-poor"]
+},
+{
+  topic: "Systems",
+  q: "What is the function of the human respiratory (breathing) system?",
+  a: `<ul>
+    <li>The respiratory system carries out <span class="kw">gas exchange</span>.</li>
+    <li>Air enters through the nose/mouth, passes through the <span class="kw">windpipe (trachea)</span>, goes into the <span class="kw">bronchi</span>, and reaches the <span class="kw">lungs</span>.</li>
+    <li>In the <span class="kw">alveoli (air sacs)</span>, <span class="kw">oxygen</span> enters the blood and <span class="kw">carbon dioxide</span> is removed.</li>
+  </ul>`,
+  keywords: ["gas exchange", "trachea", "bronchi", "lungs", "alveoli", "oxygen", "carbon dioxide"],
+  diagram: "respiratory"
+},
+{
+  topic: "Systems",
+  q: "What is the path of air when we breathe in?",
+  a: `<ul>
+    <li>Air enters through the <span class="kw">nose</span> &rarr;</li>
+    <li><span class="kw">Windpipe (trachea)</span> &rarr;</li>
+    <li><span class="kw">Bronchi</span> &rarr; <span class="kw">bronchioles</span> &rarr;</li>
+    <li><span class="kw">Alveoli (air sacs)</span> in the lungs.</li>
+    <li>In the alveoli, <span class="kw">oxygen diffuses into the blood</span> and <span class="kw">carbon dioxide diffuses out</span> to be exhaled.</li>
+  </ul>`,
+  keywords: ["nose", "trachea", "bronchi", "bronchioles", "alveoli", "diffuses", "oxygen", "carbon dioxide"]
+},
+{
+  topic: "Systems",
+  q: "What are the main parts of the human digestive system?",
+  a: `<ul>
+    <li><span class="kw">Mouth</span> &mdash; chewing; saliva breaks down starch.</li>
+    <li><span class="kw">Gullet (oesophagus)</span> &mdash; pushes food to the stomach.</li>
+    <li><span class="kw">Stomach</span> &mdash; acid and enzymes break down food.</li>
+    <li><span class="kw">Small intestine</span> &mdash; most <span class="kw">digestion and absorption</span> happen here.</li>
+    <li><span class="kw">Large intestine</span> &mdash; absorbs <span class="kw">water</span>; stores waste.</li>
+    <li><span class="kw">Rectum &amp; anus</span> &mdash; waste removal.</li>
+  </ul>`,
+  keywords: ["mouth", "saliva", "oesophagus", "stomach", "small intestine", "digestion", "absorption", "large intestine", "water"],
+  diagram: "digestive"
+},
+{
+  topic: "Systems",
+  q: "What happens to food in the small intestine?",
+  a: `<ul>
+    <li>In the <span class="kw">small intestine</span>, digested food is <span class="kw">absorbed</span> into the <span class="kw">bloodstream</span>.</li>
+    <li>Absorption happens through tiny finger-like projections called <span class="kw">villi</span>.</li>
+    <li>Villi <span class="kw">increase the surface area</span> for faster absorption.</li>
+    <li>The blood then carries the <span class="kw">digested nutrients</span> to all parts of the body.</li>
+  </ul>`,
+  keywords: ["small intestine", "absorbed", "bloodstream", "villi", "increase surface area", "digested nutrients"]
+},
+{
+  topic: "Systems",
+  q: "What are the main parts of a plant's transport system?",
+  a: `<ul>
+    <li><span class="kw">Xylem tubes</span> transport <span class="kw">water and dissolved minerals</span> from the <span class="kw">roots</span> up to the <span class="kw">leaves</span>.</li>
+    <li><span class="kw">Phloem tubes</span> transport <span class="kw">food (sugars)</span> made in the leaves to all other parts of the plant.</li>
+    <li>Both tubes run inside the <span class="kw">stem</span>.</li>
+  </ul>`,
+  keywords: ["xylem", "phloem", "water", "minerals", "roots", "leaves", "food", "sugars", "stem"],
+  diagram: "plant_transport"
+},
+{
+  topic: "Systems",
+  q: "What are the parts of a plant cell and their functions?",
+  a: `<ul>
+    <li><span class="kw">Cell wall</span> &mdash; gives the cell a <span class="kw">fixed shape</span> (plants only).</li>
+    <li><span class="kw">Cell membrane</span> &mdash; controls what enters and leaves the cell.</li>
+    <li><span class="kw">Cytoplasm</span> &mdash; jelly-like substance where chemical reactions happen.</li>
+    <li><span class="kw">Nucleus</span> &mdash; controls cell activities.</li>
+    <li><span class="kw">Vacuole</span> &mdash; stores water and food (large in plant cells).</li>
+    <li><span class="kw">Chloroplasts</span> &mdash; contain <span class="kw">chlorophyll</span> for photosynthesis (plants only).</li>
+  </ul>`,
+  keywords: ["cell wall", "fixed shape", "cell membrane", "cytoplasm", "nucleus", "vacuole", "chloroplasts", "chlorophyll"],
+  diagram: "plantcell"
+},
+{
+  topic: "Systems",
+  q: "What is the difference between plant cells and animal cells?",
+  a: `<ul>
+    <li><b>Plant cells have:</b> <span class="kw">cell wall</span> (fixed shape), <span class="kw">chloroplasts</span> (for photosynthesis), and a <span class="kw">large central vacuole</span>.</li>
+    <li><b>Animal cells:</b> Do NOT have cell walls or chloroplasts; have an <span class="kw">irregular shape</span>; have <span class="kw">small or no vacuoles</span>.</li>
+    <li><b>Both have:</b> <span class="kw">cell membrane</span>, <span class="kw">cytoplasm</span> and <span class="kw">nucleus</span>.</li>
+  </ul>`,
+  keywords: ["cell wall", "chloroplasts", "large central vacuole", "irregular shape", "small or no vacuoles", "cell membrane", "cytoplasm", "nucleus"]
+},
+{
+  topic: "Systems",
+  q: "What is the function of the skeletal system?",
+  a: `<ul>
+    <li><span class="kw">Supports</span> the body and gives it shape.</li>
+    <li><span class="kw">Protects</span> important organs (e.g. skull protects the brain; rib cage protects the heart and lungs).</li>
+    <li>Works with <span class="kw">muscles</span> to enable <span class="kw">movement</span>.</li>
+    <li>Produces <span class="kw">blood cells</span> in the bone marrow.</li>
+  </ul>`,
+  keywords: ["supports", "protects", "muscles", "movement", "skull", "rib cage", "blood cells", "bone marrow"]
+},
+
+// ========================== INTERACTIONS (Soft Pink) ==========================
+{
+  topic: "Interactions",
+  q: "What is a food chain? Give an example.",
+  a: `<ul>
+    <li>A food chain shows how <span class="kw">energy</span> is transferred from one organism to another.</li>
+    <li>Example: <span class="kw">grass</span> &rarr; <span class="kw">grasshopper</span> &rarr; <span class="kw">frog</span> &rarr; <span class="kw">snake</span>.</li>
+    <li>The arrow points in the direction of <span class="kw">energy flow</span> (who eats whom).</li>
+    <li>The first organism is always a <span class="kw">producer (plant)</span> that makes its own food.</li>
+  </ul>`,
+  keywords: ["energy", "energy flow", "arrow", "producer", "plant"],
+  diagram: "foodchain"
+},
+{
+  topic: "Interactions",
+  q: "What is a food web and how does it differ from a food chain?",
+  a: `<ul>
+    <li>A <span class="kw">food web</span> consists of many <span class="kw">overlapping food chains</span> linked together.</li>
+    <li>It shows the <span class="kw">complex feeding relationships</span> in an ecosystem.</li>
+    <li>Most animals eat <span class="kw">more than one type</span> of organism.</li>
+    <li>A food web is more <span class="kw">stable</span> &mdash; if one food source is lost, animals can find alternatives.</li>
+  </ul>`,
+  keywords: ["food web", "overlapping food chains", "complex feeding relationships", "more than one type", "stable"],
+  diagram: "foodweb"
+},
+{
+  topic: "Interactions",
+  q: "What are producers, consumers and decomposers?",
+  a: `<ul>
+    <li><b>Producers:</b> <span class="kw">Plants</span> that make their own food through photosynthesis. They are the <span class="kw">start of every food chain</span>.</li>
+    <li><b>Consumers:</b> Animals that eat other organisms. <span class="kw">Herbivores</span> eat plants; <span class="kw">carnivores</span> eat animals; <span class="kw">omnivores</span> eat both.</li>
+    <li><b>Decomposers:</b> <span class="kw">Bacteria and fungi</span> that break down dead organisms and waste, <span class="kw">returning nutrients to the soil</span>.</li>
+  </ul>`,
+  keywords: ["producers", "plants", "consumers", "herbivores", "carnivores", "omnivores", "decomposers", "bacteria", "fungi", "returning nutrients to the soil"]
+},
+{
+  topic: "Interactions",
+  q: "What are predators and prey? Give an example.",
+  a: `<ul>
+    <li>A <span class="kw">predator</span> is an animal that hunts and eats other animals.</li>
+    <li>The <span class="kw">prey</span> is the animal that is hunted and eaten.</li>
+    <li>Example: A lion (predator) hunts a zebra (prey).</li>
+    <li>The predator-prey relationship helps <span class="kw">balance the population</span> in an ecosystem.</li>
+  </ul>`,
+  keywords: ["predator", "prey", "balance the population", "ecosystem"]
+},
+{
+  topic: "Interactions",
+  q: "What happens if one organism is removed from a food web?",
+  a: `<ul>
+    <li>It affects the <span class="kw">entire food web</span>.</li>
+    <li>Organisms that <span class="kw">feed on it</span> will <span class="kw">decrease</span> in population (less food available).</li>
+    <li>Organisms that it <span class="kw">feeds on</span> will <span class="kw">increase</span> in population (fewer predators).</li>
+    <li>This shows that organisms in a food web are <span class="kw">interdependent</span>.</li>
+  </ul>`,
+  keywords: ["entire food web", "decrease", "increase", "interdependent"]
+},
+{
+  topic: "Interactions",
+  q: "What is a force? Name some types of forces.",
+  a: `<ul>
+    <li>A <span class="kw">force</span> is a <span class="kw">push or a pull</span>.</li>
+    <li>It can change the <span class="kw">shape</span>, <span class="kw">speed</span>, or <span class="kw">direction</span> of an object.</li>
+    <li><span class="kw">Friction</span> &mdash; opposes motion between two surfaces.</li>
+    <li><span class="kw">Gravitational force</span> &mdash; pulls objects towards Earth.</li>
+    <li><span class="kw">Magnetic force</span> &mdash; attracts magnetic materials.</li>
+    <li><span class="kw">Elastic spring force</span> &mdash; from a stretched or compressed spring.</li>
+  </ul>`,
+  keywords: ["force", "push or a pull", "shape", "speed", "direction", "friction", "gravitational force", "magnetic force", "elastic spring force"]
+},
+{
+  topic: "Interactions",
+  q: "What is friction and how can it be useful or a problem?",
+  a: `<ul>
+    <li><span class="kw">Friction</span> is a force that <span class="kw">opposes motion</span> when two surfaces rub against each other.</li>
+    <li><b>Useful:</b> Allows us to <span class="kw">walk without slipping</span>; brakes stop vehicles; helps us <span class="kw">grip objects</span>.</li>
+    <li><b>Problem:</b> Causes <span class="kw">wear and tear</span> on machines; makes objects <span class="kw">slow down</span>; produces unwanted <span class="kw">heat</span>.</li>
+    <li>We reduce friction using <span class="kw">lubricants</span>, wheels, or smooth surfaces.</li>
+  </ul>`,
+  keywords: ["friction", "opposes motion", "walk without slipping", "grip objects", "wear and tear", "slow down", "heat", "lubricants"]
+},
+{
+  topic: "Interactions",
+  q: "What is gravity and how does it affect objects?",
+  a: `<ul>
+    <li><span class="kw">Gravity (gravitational force)</span> is a <span class="kw">pulling force</span> that attracts objects towards the <span class="kw">centre of the Earth</span>.</li>
+    <li>It causes objects to <span class="kw">fall to the ground</span> when dropped.</li>
+    <li>It gives objects <span class="kw">weight</span>.</li>
+    <li>The greater the <span class="kw">mass</span> of an object, the <span class="kw">greater the gravitational force</span> acting on it.</li>
+  </ul>`,
+  keywords: ["gravity", "gravitational force", "pulling force", "centre of the Earth", "fall to the ground", "weight", "mass"]
+},
+{
+  topic: "Interactions",
+  q: "How do magnets interact with each other?",
+  a: `<ul>
+    <li>Magnets have two poles: <span class="kw">North (N)</span> and <span class="kw">South (S)</span>.</li>
+    <li><b>Unlike poles attract:</b> N and S <span class="kw">pull towards</span> each other.</li>
+    <li><b>Like poles repel:</b> N and N, or S and S <span class="kw">push away</span> from each other.</li>
+    <li>The area where a magnet's force can be felt is the <span class="kw">magnetic field</span>.</li>
+    <li>Magnets only attract <span class="kw">magnetic materials</span> (iron, steel, nickel, cobalt).</li>
+  </ul>`,
+  keywords: ["North", "South", "unlike poles attract", "like poles repel", "push away", "magnetic field", "magnetic materials"]
+},
+{
+  topic: "Interactions",
+  q: "What adaptations help animals survive in different environments?",
+  a: `<ul>
+    <li><b>Structural adaptations:</b> <span class="kw">Camouflage</span> (hide from predators); sharp claws (catch prey); <span class="kw">thick fur</span> (stay warm); webbed feet (swim).</li>
+    <li><b>Behavioural adaptations:</b> <span class="kw">Migration</span> (move to warmer areas in winter); <span class="kw">hibernation</span> (sleep to save energy).</li>
+    <li>Each adaptation helps the organism <span class="kw">survive and reproduce</span> in its environment.</li>
+  </ul>`,
+  keywords: ["structural adaptations", "camouflage", "thick fur", "behavioural adaptations", "migration", "hibernation", "survive and reproduce"]
+},
+
+// ========================== DIVERSITY (Mint Green) ==========================
+{
+  topic: "Diversity",
+  q: "How do we classify living things into groups?",
+  a: `<ul>
+    <li>Living things are classified by their <span class="kw">observable characteristics</span> &mdash; features we can see.</li>
+    <li>Examples: body covering, number of legs, method of reproduction, how they feed.</li>
+    <li>Main groups: <span class="kw">mammals</span>, <span class="kw">birds</span>, <span class="kw">reptiles</span>, <span class="kw">fish</span>, <span class="kw">amphibians</span>, <span class="kw">insects</span>, <span class="kw">fungi</span>, <span class="kw">bacteria</span> and <span class="kw">plants</span>.</li>
+  </ul>`,
+  keywords: ["observable characteristics", "mammals", "birds", "reptiles", "fish", "amphibians", "insects", "fungi", "bacteria", "plants"]
+},
+{
+  topic: "Diversity",
+  q: "What are the characteristics of mammals?",
+  a: `<ul>
+    <li>Have <span class="kw">hair or fur</span> on their bodies.</li>
+    <li>Give birth to <span class="kw">live young</span>.</li>
+    <li>Produce <span class="kw">milk</span> to feed their young.</li>
+    <li>Are <span class="kw">warm-blooded</span> (maintain a constant body temperature).</li>
+    <li>Breathe through <span class="kw">lungs</span>.</li>
+    <li>Examples: humans, dogs, whales, bats.</li>
+  </ul>`,
+  keywords: ["hair", "fur", "live young", "milk", "warm-blooded", "lungs"]
+},
+{
+  topic: "Diversity",
+  q: "What are the characteristics of birds?",
+  a: `<ul>
+    <li>Have <span class="kw">feathers</span> covering their bodies.</li>
+    <li>Have a <span class="kw">beak</span> (no teeth).</li>
+    <li>Lay <span class="kw">eggs with hard shells</span>.</li>
+    <li>Have <span class="kw">two wings</span> (most can fly; some like ostriches cannot).</li>
+    <li>Are <span class="kw">warm-blooded</span>.</li>
+    <li>Examples: eagles, pigeons, penguins, chickens.</li>
+  </ul>`,
+  keywords: ["feathers", "beak", "eggs with hard shells", "two wings", "warm-blooded"]
+},
+{
+  topic: "Diversity",
+  q: "How are flowering plants different from non-flowering plants?",
+  a: `<ul>
+    <li><b>Flowering plants</b> (e.g. rose, hibiscus, mango tree): produce <span class="kw">flowers</span> and reproduce using <span class="kw">seeds</span> formed inside <span class="kw">fruits</span>.</li>
+    <li><b>Non-flowering plants</b> (e.g. ferns, moss, pine tree): do NOT produce flowers.</li>
+    <li>Ferns reproduce using <span class="kw">spores</span> on the underside of their leaves.</li>
+    <li>Pine trees reproduce using <span class="kw">cones</span> (seeds without fruit).</li>
+  </ul>`,
+  keywords: ["flowering", "flowers", "seeds", "fruits", "non-flowering", "spores", "cones"]
+},
+{
+  topic: "Diversity",
+  q: "How do we classify animals based on what they eat?",
+  a: `<ul>
+    <li><b>Herbivores</b> eat only <span class="kw">plants</span> (e.g. cow, rabbit, goat) &mdash; have <span class="kw">flat teeth</span> for grinding.</li>
+    <li><b>Carnivores</b> eat only <span class="kw">other animals</span> (e.g. lion, eagle, tiger) &mdash; have <span class="kw">sharp teeth</span> for tearing meat.</li>
+    <li><b>Omnivores</b> eat <span class="kw">both plants and animals</span> (e.g. humans, bears, chickens) &mdash; have both flat and sharp teeth.</li>
+  </ul>`,
+  keywords: ["herbivores", "plants", "flat teeth", "carnivores", "other animals", "sharp teeth", "omnivores", "both plants and animals"]
+},
+{
+  topic: "Diversity",
+  q: "What are fungi and how are they different from plants?",
+  a: `<ul>
+    <li><span class="kw">Fungi</span> (e.g. mushrooms, mould, yeast) are living things that:</li>
+    <li>Do NOT have <span class="kw">chlorophyll</span>, so they <span class="kw">cannot make their own food</span> (they are NOT plants).</li>
+    <li>Feed on <span class="kw">dead or living organisms</span> by absorbing nutrients.</li>
+    <li>Reproduce using <span class="kw">spores</span>.</li>
+    <li>Have thread-like structures called <span class="kw">hyphae</span>.</li>
+  </ul>`,
+  keywords: ["fungi", "chlorophyll", "cannot make their own food", "dead or living organisms", "spores", "hyphae"]
+},
+{
+  topic: "Diversity",
+  q: "What is biodiversity and why is it important?",
+  a: `<ul>
+    <li><span class="kw">Biodiversity</span> is the <span class="kw">variety of living things</span> in an environment.</li>
+    <li>Different organisms <span class="kw">depend on each other</span> in food webs.</li>
+    <li>Plants provide <span class="kw">oxygen</span>, food and medicine.</li>
+    <li>Greater diversity means the <span class="kw">ecosystem is more stable</span> and can recover from disturbances.</li>
+    <li>Humans rely on diverse species for food, materials and medicine.</li>
+  </ul>`,
+  keywords: ["biodiversity", "variety of living things", "depend on each other", "oxygen", "ecosystem is more stable"]
+},
+{
+  topic: "Diversity",
+  q: "How can we classify materials based on their properties?",
+  a: `<ul>
+    <li><span class="kw">Strength</span> &mdash; strong or weak.</li>
+    <li><span class="kw">Flexibility</span> &mdash; can bend without breaking.</li>
+    <li><span class="kw">Waterproof</span> &mdash; does not absorb water.</li>
+    <li><span class="kw">Floats or sinks</span> in water.</li>
+    <li><span class="kw">Magnetic or non-magnetic</span>.</li>
+    <li><span class="kw">Transparent, translucent or opaque</span> (how much light passes through).</li>
+    <li><span class="kw">Conductor or insulator</span> of heat and electricity.</li>
+  </ul>`,
+  keywords: ["strength", "flexibility", "waterproof", "floats", "sinks", "magnetic", "transparent", "translucent", "opaque", "conductor", "insulator"]
+},
+{
+  topic: "Diversity",
+  q: "What is the difference between transparent, translucent and opaque materials?",
+  a: `<ul>
+    <li><b>Transparent</b> &mdash; allows <span class="kw">all light to pass through</span>; can see clearly (e.g. clear glass, water).</li>
+    <li><b>Translucent</b> &mdash; allows <span class="kw">some light to pass through</span>; cannot see clearly (e.g. frosted glass, tracing paper).</li>
+    <li><b>Opaque</b> &mdash; <span class="kw">does not allow any light to pass through</span> (e.g. wood, metal, cardboard); casts a <span class="kw">shadow</span>.</li>
+  </ul>`,
+  keywords: ["transparent", "all light to pass through", "translucent", "some light to pass through", "opaque", "does not allow any light", "shadow"]
+},
+{
+  topic: "Diversity",
+  q: "What are microorganisms and are they useful or harmful?",
+  a: `<ul>
+    <li><span class="kw">Microorganisms</span> are tiny living things too small to be seen with the naked eye.</li>
+    <li>They include <span class="kw">bacteria</span>, <span class="kw">fungi (yeast, mould)</span> and <span class="kw">protists</span>.</li>
+    <li><b>Useful:</b> Yeast helps bread <span class="kw">rise</span>; bacteria make yogurt and cheese; some <span class="kw">decompose</span> waste.</li>
+    <li><b>Harmful:</b> Some bacteria and viruses cause <span class="kw">diseases</span> (e.g. flu, food poisoning). Mould <span class="kw">spoils food</span>.</li>
+  </ul>`,
+  keywords: ["microorganisms", "bacteria", "fungi", "yeast", "mould", "protists", "rise", "decompose", "diseases", "spoils food"]
+},
+
+// ========================== ENERGY (Golden Yellow) ==========================
+{
+  topic: "Energy",
+  q: "What are the different forms of energy?",
+  a: `<ul>
+    <li><span class="kw">Light energy</span> &mdash; from the Sun, lamps.</li>
+    <li><span class="kw">Heat (thermal) energy</span> &mdash; from fire, the Sun.</li>
+    <li><span class="kw">Electrical energy</span> &mdash; from batteries, power stations.</li>
+    <li><span class="kw">Kinetic energy</span> &mdash; energy of moving objects.</li>
+    <li><span class="kw">Potential energy</span> &mdash; stored energy (e.g. stretched spring, object on a high shelf).</li>
+    <li><span class="kw">Sound energy</span> &mdash; from vibrations.</li>
+    <li><span class="kw">Chemical energy</span> &mdash; stored in food and fuels.</li>
+  </ul>`,
+  keywords: ["light energy", "heat energy", "electrical energy", "kinetic energy", "potential energy", "sound energy", "chemical energy"]
+},
+{
+  topic: "Energy",
+  q: "What is the difference between renewable and non-renewable energy sources?",
+  a: `<ul>
+    <li><b>Renewable energy</b> can be <span class="kw">replaced naturally</span> and will <span class="kw">not run out</span>.</li>
+    <li>Examples: <span class="kw">solar</span>, <span class="kw">wind</span>, <span class="kw">hydro</span> (water), <span class="kw">geothermal</span>, <span class="kw">biomass</span>.</li>
+    <li><b>Non-renewable energy</b> comes from <span class="kw">fossil fuels</span> (coal, oil, natural gas).</li>
+    <li>Fossil fuels take <span class="kw">millions of years</span> to form and will <span class="kw">eventually run out</span>.</li>
+    <li>Burning fossil fuels causes <span class="kw">pollution</span>.</li>
+  </ul>`,
+  keywords: ["renewable", "replaced naturally", "not run out", "solar", "wind", "hydro", "non-renewable", "fossil fuels", "millions of years", "eventually run out", "pollution"]
+},
+{
+  topic: "Energy",
+  q: "How is energy transferred in a food chain?",
+  a: `<ul>
+    <li>Energy flows from the <span class="kw">Sun</span> &rarr; <span class="kw">producer (plant)</span> &rarr; <span class="kw">primary consumer (herbivore)</span> &rarr; <span class="kw">secondary consumer (carnivore)</span> &rarr; <span class="kw">tertiary consumer (top carnivore)</span>.</li>
+    <li>At each level, only about <span class="kw">10% of energy</span> is passed on to the next organism.</li>
+    <li>Most energy is <span class="kw">lost as heat</span> or used for <span class="kw">life processes</span> (movement, growth, repair).</li>
+    <li>This is why food chains are usually <span class="kw">short</span> (3&ndash;4 levels).</li>
+  </ul>`,
+  keywords: ["Sun", "producer", "primary consumer", "secondary consumer", "tertiary consumer", "10% of energy", "lost as heat", "life processes", "short"]
+},
+{
+  topic: "Energy",
+  q: "What is photosynthesis in terms of energy conversion?",
+  a: `<ul>
+    <li>During photosynthesis, plants convert <span class="kw">light energy</span> from the Sun into <span class="kw">chemical energy</span> stored in glucose (food).</li>
+    <li>Inputs: <span class="kw">carbon dioxide</span>, <span class="kw">water</span>, and <span class="kw">light energy</span>.</li>
+    <li><span class="kw">Chlorophyll</span> in the leaves traps light energy.</li>
+    <li>Outputs: <span class="kw">glucose</span> (stores energy) and <span class="kw">oxygen</span>.</li>
+    <li>This stored energy is then passed on to animals that eat the plant.</li>
+  </ul>`,
+  keywords: ["light energy", "chemical energy", "carbon dioxide", "water", "chlorophyll", "glucose", "oxygen"]
+},
+{
+  topic: "Energy",
+  q: "How does a simple electrical circuit work?",
+  a: `<ul>
+    <li>A circuit needs: a <span class="kw">power source (battery)</span>, <span class="kw">wires</span>, and a <span class="kw">load (e.g. bulb)</span>.</li>
+    <li>The battery provides <span class="kw">electrical energy</span>.</li>
+    <li>Electricity flows through the wires in a <span class="kw">closed loop</span>.</li>
+    <li>If there is a <span class="kw">gap or break</span> in the circuit, electricity <span class="kw">cannot flow</span> and the bulb will not light up.</li>
+    <li>A <span class="kw">switch</span> opens (breaks) or closes (completes) the circuit.</li>
+  </ul>`,
+  keywords: ["power source", "battery", "wires", "load", "bulb", "electrical energy", "closed loop", "gap or break", "cannot flow", "switch"],
+  diagram: "circuit"
+},
+{
+  topic: "Energy",
+  q: "What are conductors and insulators of electricity?",
+  a: `<ul>
+    <li><b>Electrical conductors</b> are materials that <span class="kw">allow electricity to flow through</span> them easily.</li>
+    <li>Examples: <span class="kw">metals</span> (copper, iron, aluminium), graphite.</li>
+    <li><b>Electrical insulators</b> are materials that <span class="kw">do not allow electricity to flow</span> through them.</li>
+    <li>Examples: <span class="kw">plastic, rubber, glass, wood, ceramic</span>.</li>
+    <li>Wires are covered with plastic insulation to <span class="kw">protect us from electric shock</span>.</li>
+  </ul>`,
+  keywords: ["conductors", "allow electricity to flow through", "metals", "insulators", "do not allow electricity to flow", "plastic", "rubber", "glass", "wood", "protect us from electric shock"]
+},
+{
+  topic: "Energy",
+  q: "What are conductors and insulators of heat?",
+  a: `<ul>
+    <li><b>Heat conductors</b> allow heat to <span class="kw">travel through them quickly</span>.</li>
+    <li><span class="kw">Metals</span> are good conductors of heat (e.g. copper, aluminium, iron).</li>
+    <li>That is why cooking pots are made of metal.</li>
+    <li><b>Heat insulators</b> do <span class="kw">not allow heat to travel</span> through them easily.</li>
+    <li>Examples: <span class="kw">plastic, wood, rubber, glass, air</span>.</li>
+    <li>That is why pot handles are made of plastic, and we wear woollen clothes to <span class="kw">keep warm</span>.</li>
+  </ul>`,
+  keywords: ["heat conductors", "travel through them quickly", "metals", "heat insulators", "not allow heat to travel", "plastic", "wood", "rubber", "air", "keep warm"]
+},
+{
+  topic: "Energy",
+  q: "How is heat transferred? What are the three methods?",
+  a: `<ul>
+    <li><span class="kw">Conduction</span> &mdash; heat travels through a <span class="kw">solid</span> (e.g. a metal spoon in hot soup <span class="kw">gains heat</span> and gets warm).</li>
+    <li><span class="kw">Convection</span> &mdash; heat travels through a <span class="kw">liquid or gas</span> as warm fluid <span class="kw">rises</span> and cool fluid <span class="kw">sinks</span> (e.g. boiling water).</li>
+    <li><span class="kw">Radiation</span> &mdash; heat travels through <span class="kw">empty space</span> without a medium (e.g. heat from the Sun reaches Earth through vacuum).</li>
+  </ul>`,
+  keywords: ["conduction", "solid", "gains heat", "convection", "liquid or gas", "rises", "sinks", "radiation", "empty space"]
+},
+{
+  topic: "Energy",
+  q: "How does a shadow form?",
+  a: `<ul>
+    <li>A shadow forms when an <span class="kw">opaque object</span> <span class="kw">blocks the path of light</span>.</li>
+    <li>Light travels in <span class="kw">straight lines</span>.</li>
+    <li>When light hits an opaque object, it <span class="kw">cannot pass through</span>, creating a dark area (shadow) behind the object.</li>
+    <li>The shape of the shadow depends on the <span class="kw">shape of the object</span> and the <span class="kw">position of the light source</span>.</li>
+  </ul>`,
+  keywords: ["opaque object", "blocks the path of light", "straight lines", "cannot pass through", "shape of the object", "position of the light source"]
+},
+{
+  topic: "Energy",
+  q: "What is the difference between reflection and refraction of light?",
+  a: `<ul>
+    <li><b>Reflection</b> occurs when light <span class="kw">bounces off a surface</span> (e.g. a mirror reflects light so you can see your reflection).</li>
+    <li>The angle of incidence equals the angle of reflection.</li>
+    <li><b>Refraction</b> is the <span class="kw">bending of light</span> when it passes from one <span class="kw">transparent medium</span> to another with different density.</li>
+    <li>Example: a straw looks bent in a glass of water because light <span class="kw">changes speed</span> in water.</li>
+  </ul>`,
+  keywords: ["reflection", "bounces off a surface", "refraction", "bending of light", "transparent medium", "changes speed"]
+},
+{
+  topic: "Energy",
+  q: "How is sound produced and how does it travel?",
+  a: `<ul>
+    <li>Sound is produced when objects <span class="kw">vibrate</span> (move rapidly back and forth).</li>
+    <li>The vibrations create <span class="kw">sound waves</span> that travel through a <span class="kw">medium</span>.</li>
+    <li>Sound travels through <span class="kw">solids, liquids and gases</span> by passing vibrations from one particle to the next.</li>
+    <li>Sound <span class="kw">cannot travel through a vacuum</span> (empty space with no particles).</li>
+    <li>Sound travels <span class="kw">fastest in solids</span> and <span class="kw">slowest in gases</span>.</li>
+  </ul>`,
+  keywords: ["vibrate", "sound waves", "medium", "solids, liquids and gases", "cannot travel through a vacuum", "fastest in solids", "slowest in gases"]
+},
+{
+  topic: "Energy",
+  q: "How can we save energy at home and in school?",
+  a: `<ul>
+    <li>Turn off <span class="kw">lights and appliances</span> when not in use.</li>
+    <li>Use <span class="kw">energy-efficient bulbs</span> (LED).</li>
+    <li>Set the <span class="kw">air-conditioner at 25&deg;C</span> or higher.</li>
+    <li>Do not open the fridge door unnecessarily.</li>
+    <li>Use <span class="kw">natural light and ventilation</span> when possible.</li>
+    <li>Wash with <span class="kw">cold water</span>.</li>
+    <li>Saving energy reduces <span class="kw">fossil fuel</span> use and <span class="kw">pollution</span>.</li>
+  </ul>`,
+  keywords: ["lights and appliances", "energy-efficient", "LED", "air-conditioner at 25°C", "natural light and ventilation", "cold water", "fossil fuel", "pollution"]
+},
+
+];
+
+// ============================================================
+// SVG DIAGRAMS — updated with warm, muted topic palettes
+// ============================================================
+
+function getDiagram(name) {
+  const diagrams = {
+    photosynthesis: `<svg width="200" height="70" viewBox="0 0 200 70"><circle cx="22" cy="20" r="12" fill="#F5D67A" stroke="#D4A843" stroke-width="1"/><text x="22" y="23" font-size="6" text-anchor="middle" fill="#6B5520" font-weight="bold">SUN</text><rect x="55" y="15" width="50" height="40" fill="#B8D9BD" stroke="#5BA064" stroke-width="1.5" rx="6"/><line x1="80" y1="15" x2="80" y2="3" stroke="#5BA064" stroke-width="2"/><text x="80" y="38" font-size="7" text-anchor="middle" fill="#2D5E35" font-weight="bold">Leaf</text><path d="M 40 25 Q 48 15 55 23" stroke="#4A90C4" fill="none" stroke-width="1.5" marker-end="url(#arr1)"/><text x="135" y="22" font-size="6" fill="#2B5C80">O₂ ↑</text><text x="135" y="52" font-size="6" fill="#6B5520">CO₂ →</text><text x="150" y="40" font-size="6" fill="#2D5E35">Sugar →</text><defs><marker id="arr1" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><polygon points="0 0, 4 2, 0 4" fill="#4A90C4"/></marker></defs></svg>`,
+    watercycle: `<svg width="200" height="80" viewBox="0 0 200 80"><path d="M 20 60 Q 50 55 80 60 T 140 60 T 180 60" stroke="#4A90C4" fill="#D6E8F4" stroke-width="1.5"/><path d="M 60 55 Q 70 45 80 55" stroke="#6BA5D0" fill="#B8D4E8" opacity="0.7" stroke-width="1"/><path d="M 120 50 Q 135 38 150 50" stroke="#6BA5D0" fill="#B8D4E8" opacity="0.7" stroke-width="1"/><line x1="100" y1="50" x2="95" y2="25" stroke="#4A90C4" stroke-width="1" stroke-dasharray="2,2"/><line x1="130" y1="50" x2="125" y2="28" stroke="#4A90C4" stroke-width="1" stroke-dasharray="2,2"/><text x="80" y="20" font-size="6" fill="#2B5C80">evaporation</text><text x="65" y="45" font-size="6" fill="#2B5C80">condensation</text><text x="145" y="65" font-size="6" fill="#2B5C80">rain</text></svg>`,
+    butterfly: `<svg width="200" height="60" viewBox="0 0 200 60"><circle cx="20" cy="30" r="6" fill="#E0D4B8" stroke="#B8985E"/><text x="20" y="48" font-size="5" text-anchor="middle" fill="#6B5520">Egg</text><path d="M 45 30 Q 55 20 55 40 Q 55 45 50 45 L 45 42" fill="#B8D9BD" stroke="#5BA064"/><text x="55" y="55" font-size="5" text-anchor="middle" fill="#2D5E35">Larva</text><ellipse cx="90" cy="30" rx="6" ry="14" fill="#D9CFB8" stroke="#A0895E"/><text x="90" y="55" font-size="5" text-anchor="middle" fill="#6B5D44">Pupa</text><path d="M 125 30 Q 115 18 130 20 Q 140 25 135 30 Q 140 35 130 40 Q 115 42 125 30" fill="#E8C5CC" stroke="#C4707E"/><text x="130" y="55" font-size="5" text-anchor="middle" fill="#8B3A48">Adult</text><line x1="27" y1="30" x2="40" y2="30" stroke="#8C8480" stroke-width="1" marker-end="url(#arr2)"/><line x1="62" y1="30" x2="76" y2="30" stroke="#8C8480" stroke-width="1" marker-end="url(#arr2)"/><line x1="100" y1="30" x2="114" y2="30" stroke="#8C8480" stroke-width="1" marker-end="url(#arr2)"/><defs><marker id="arr2" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><polygon points="0 0, 4 2, 0 4" fill="#8C8480"/></marker></defs></svg>`,
+    flower: `<svg width="180" height="90" viewBox="0 0 180 90"><ellipse cx="50" cy="40" rx="12" ry="8" fill="#E8C5CC" stroke="#C4707E"/><circle cx="50" cy="40" r="5" fill="#E0D4B8"/><line x1="50" y1="48" x2="50" y2="75" stroke="#5BA064" stroke-width="2"/><ellipse cx="38" cy="65" rx="7" ry="3" fill="#B8D9BD" stroke="#5BA064"/><text x="72" y="30" font-size="6" fill="#8B3A48" font-weight="bold">Petal</text><line x1="55" y1="37" x2="70" y2="30" stroke="#C4707E"/><text x="72" y="45" font-size="6" fill="#6B5520" font-weight="bold">Stamen</text><line x1="52" y1="42" x2="70" y2="44" stroke="#6B5520"/><text x="72" y="60" font-size="6" fill="#2D5E35" font-weight="bold">Stigma</text><line x1="50" y1="48" x2="70" y2="58" stroke="#2D5E35"/><text x="72" y="72" font-size="6" fill="#2D5E35" font-weight="bold">Stem</text><line x1="50" y1="65" x2="70" y2="70" stroke="#2D5E35"/></svg>`,
+    circulatory: `<svg width="180" height="80" viewBox="0 0 180 80"><path d="M 90 15 Q 60 15 50 40 Q 50 55 65 55 Q 80 55 80 45" stroke="#C4707E" fill="none" stroke-width="2.5"/><path d="M 90 15 Q 120 15 130 40 Q 130 55 115 55 Q 100 55 100 45" stroke="#4A90C4" fill="none" stroke-width="2.5"/><path d="M 60 60 Q 40 70 30 60" stroke="#4A90C4" fill="none" stroke-width="2"/><path d="M 120 60 Q 140 70 150 60" stroke="#C4707E" fill="none" stroke-width="2"/><circle cx="90" cy="18" r="6" fill="#E8C5CC" stroke="#C4707E"/><text x="90" y="42" font-size="8" text-anchor="middle" fill="#8B3A48" font-weight="bold">Heart</text><text x="15" y="52" font-size="5" fill="#2B5C80">Vein</text><text x="145" y="52" font-size="5" fill="#8B3A48">Artery</text></svg>`,
+    respiratory: `<svg width="180" height="80" viewBox="0 0 180 80"><path d="M 90 5 Q 85 15 90 20 Q 95 15 90 5" fill="#E0D4B8" stroke="#B8985E"/><text x="108" y="14" font-size="6" fill="#6B5520">Nose</text><line x1="90" y1="20" x2="90" y2="35" stroke="#8C8480" stroke-width="2"/><text x="108" y="30" font-size="6" fill="#6B5D44">Trachea</text><path d="M 90 35 Q 65 40 55 55 Q 50 60 50 65 Q 65 70 80 65 Q 85 55 85 45" fill="#E8C5CC" stroke="#C4707E" stroke-width="1.5"/><path d="M 90 35 Q 115 40 125 55 Q 130 60 130 65 Q 115 70 100 65 Q 95 55 95 45" fill="#E8C5CC" stroke="#C4707E" stroke-width="1.5"/><text x="50" y="78" font-size="6" fill="#8B3A48">Lung</text><text x="120" y="78" font-size="6" fill="#8B3A48">Lung</text></svg>`,
+    digestive: `<svg width="200" height="50" viewBox="0 0 200 50"><circle cx="15" cy="25" r="8" fill="#E0D4B8" stroke="#B8985E"/><text x="15" y="44" font-size="5" text-anchor="middle" fill="#6B5520">Mouth</text><path d="M 23 25 Q 35 18 45 25" stroke="#A0895E" fill="none" stroke-width="2"/><ellipse cx="55" cy="25" rx="10" ry="7" fill="#D9CFB8" stroke="#A0895E"/><text x="55" y="44" font-size="5" text-anchor="middle" fill="#6B5D44">Stomach</text><path d="M 65 28 Q 85 15 130 25 Q 145 28 150 25" stroke="#A0895E" fill="none" stroke-width="2"/><text x="100" y="13" font-size="5" text-anchor="middle" fill="#6B5D44">Small Intestine</text><path d="M 150 25 Q 165 35 180 30" stroke="#6B5D44" fill="none" stroke-width="3"/><text x="168" y="44" font-size="5" text-anchor="middle" fill="#6B5D44">Large Intestine</text></svg>`,
+    plant_transport: `<svg width="100" height="90" viewBox="0 0 100 90"><path d="M 50 5 Q 38 15 42 25 Q 50 28 58 25 Q 62 15 50 5" fill="#B8D9BD" stroke="#5BA064"/><line x1="50" y1="25" x2="50" y2="50" stroke="#A0895E" stroke-width="3"/><text x="64" y="35" font-size="5" fill="#6B5D44">Phloem ↓</text><line x1="47" y1="25" x2="47" y2="50" stroke="#4A90C4" stroke-width="2"/><text x="15" y="35" font-size="5" fill="#2B5C80">Xylem ↑</text><line x1="50" y1="50" x2="50" y2="68" stroke="#5BA064" stroke-width="3"/><path d="M 35 75 Q 50 70 50 68 Q 50 70 65 75" fill="#D9CFB8" stroke="#A0895E"/><text x="50" y="85" font-size="5" text-anchor="middle" fill="#6B5D44">Roots</text></svg>`,
+    plantcell: `<svg width="140" height="100" viewBox="0 0 140 100"><rect x="10" y="10" width="120" height="80" fill="#D5E8D8" stroke="#5BA064" stroke-width="2" rx="3"/><rect x="16" y="16" width="108" height="68" fill="#B8D9BD" stroke="#5BA064" stroke-width="1"/><circle cx="70" cy="45" r="10" fill="#A0895E" stroke="#6B5D44"/><ellipse cx="40" cy="30" rx="5" ry="3" fill="#B8D9BD" stroke="#5BA064"/><ellipse cx="100" cy="60" rx="5" ry="3" fill="#B8D9BD" stroke="#5BA064"/><ellipse cx="65" cy="72" rx="20" ry="5" fill="#D6E8F4" opacity="0.6" stroke="#4A90C4"/><text x="75" y="48" font-size="5" fill="white" font-weight="bold">N</text><text x="33" y="33" font-size="4" fill="#2D5E35">Chl</text></svg>`,
+    foodchain: `<svg width="200" height="50" viewBox="0 0 200 50"><circle cx="20" cy="25" r="10" fill="#B8D9BD" stroke="#5BA064"/><text x="20" y="27" font-size="6" text-anchor="middle" fill="#2D5E35">Grass</text><line x1="32" y1="25" x2="58" y2="25" stroke="#8C8480" stroke-width="1.5" marker-end="url(#arr3)"/><ellipse cx="70" cy="25" rx="10" ry="5" fill="#E0D4B8" stroke="#B8985E"/><text x="70" y="27" font-size="5" text-anchor="middle" fill="#6B5520">Hopper</text><line x1="82" y1="25" x2="108" y2="25" stroke="#8C8480" stroke-width="1.5" marker-end="url(#arr3)"/><circle cx="120" cy="25" r="8" fill="#5BA064" stroke="#2D5E35"/><text x="120" y="27" font-size="6" text-anchor="middle" fill="white">Frog</text><line x1="130" y1="25" x2="155" y2="25" stroke="#8C8480" stroke-width="1.5" marker-end="url(#arr3)"/><path d="M 170 17 Q 180 25 170 33 Q 175 25 170 17" fill="#A0895E" stroke="#6B5D44"/><text x="172" y="27" font-size="5" fill="white">Snake</text><defs><marker id="arr3" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto"><polygon points="0 0, 4 2, 0 4" fill="#8C8480"/></marker></defs></svg>`,
+    foodweb: `<svg width="180" height="80" viewBox="0 0 180 80"><circle cx="40" cy="20" r="8" fill="#B8D9BD" stroke="#5BA064"/><text x="40" y="45" font-size="5" text-anchor="middle" fill="#2D5E35">Grass</text><circle cx="130" cy="20" r="8" fill="#B8D9BD" stroke="#5BA064"/><text x="130" y="45" font-size="5" text-anchor="middle" fill="#2D5E35">Tree</text><ellipse cx="25" cy="55" rx="8" ry="4" fill="#E0D4B8" stroke="#B8985E"/><text x="25" y="72" font-size="5" text-anchor="middle" fill="#6B5520">Rabbit</text><ellipse cx="85" cy="55" rx="8" ry="4" fill="#E0D4B8" stroke="#B8985E"/><text x="85" y="72" font-size="5" text-anchor="middle" fill="#6B5520">Deer</text><ellipse cx="140" cy="55" rx="8" ry="4" fill="#E0D4B8" stroke="#B8985E"/><text x="140" y="72" font-size="5" text-anchor="middle" fill="#6B5520">Bird</text><line x1="40" y1="28" x2="25" y2="50" stroke="#8C8480" stroke-width="1" marker-end="url(#arr4)"/><line x1="40" y1="28" x2="80" y2="50" stroke="#8C8480" stroke-width="1" marker-end="url(#arr4)"/><line x1="130" y1="28" x2="88" y2="50" stroke="#8C8480" stroke-width="1" marker-end="url(#arr4)"/><line x1="130" y1="28" x2="135" y2="50" stroke="#8C8480" stroke-width="1" marker-end="url(#arr4)"/><defs><marker id="arr4" markerWidth="3" markerHeight="3" refX="2" refY="1.5" orient="auto"><polygon points="0 0, 3 1.5, 0 3" fill="#8C8480"/></marker></defs></svg>`,
+    circuit: `<svg width="180" height="80" viewBox="0 0 180 80"><rect x="15" y="50" width="30" height="20" fill="#E0D4B8" stroke="#B8985E" rx="2"/><text x="30" y="62" font-size="6" text-anchor="middle" fill="#6B5520" font-weight="bold">Battery</text><line x1="15" y1="50" x2="15" y2="25" stroke="#6B5D44" stroke-width="2"/><line x1="15" y1="25" x2="75" y2="25" stroke="#6B5D44" stroke-width="2"/><circle cx="90" cy="25" r="12" fill="#F5D67A" stroke="#D4A843" stroke-width="2"/><line x1="84" y1="19" x2="96" y2="31" stroke="#D4A843" stroke-width="1.5"/><line x1="96" y1="19" x2="84" y2="31" stroke="#D4A843" stroke-width="1.5"/><text x="90" y="48" font-size="6" text-anchor="middle" fill="#6B5520" font-weight="bold">Bulb</text><line x1="102" y1="25" x2="160" y2="25" stroke="#6B5D44" stroke-width="2"/><line x1="160" y1="25" x2="160" y2="60" stroke="#6B5D44" stroke-width="2"/><line x1="160" y1="60" x2="45" y2="60" stroke="#6B5D44" stroke-width="2"/><line x1="45" y1="60" x2="45" y2="50" stroke="#6B5D44" stroke-width="2"/><circle cx="120" cy="60" r="5" fill="white" stroke="#A0895E" stroke-width="2"/><line x1="115" y1="60" x2="125" y2="60" stroke="#A0895E" stroke-width="2"/><text x="120" y="75" font-size="5" text-anchor="middle" fill="#6B5D44">Switch</text></svg>`,
+  };
+  return diagrams[name] || '';
+}
+
+// ============================================================
+// RENDER LOGIC
+// ============================================================
+
+let currentFilter = 'All';
+let currentCards = [...flashcardData];
+let allFlipped = false;
+
+function renderCards() {
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML = '';
+
+  const cards = currentFilter === 'All'
+    ? currentCards
+    : currentCards.filter(c => c.topic === currentFilter);
+
+  if (cards.length === 0) {
+    container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No flashcards in this topic.</p>';
+    return;
+  }
+
+  cards.forEach((card, idx) => {
+    const globalIdx = flashcardData.indexOf(card);
+    const flipClass = allFlipped ? 'flipped' : '';
+    const tClass = `t-${card.topic}`;
+    const badgeClass = `badge-${card.topic}`;
+
+    const diagramFront = card.diagram ? `<div class="visual-cue">${getDiagram(card.diagram)}</div>` : '';
+    const diagramBack = card.diagram ? `<div class="diagram">${getDiagram(card.diagram)}</div>` : '';
+
+    const keywordsHTML = card.keywords
+      ? `<div class="keywords-section"><div class="keywords-label">MOE Keywords</div>${card.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}</div>`
+      : '';
+
+    const html = `
+      <div class="flashcard ${flipClass}" data-idx="${globalIdx}" style="animation-delay: ${idx * 0.05}s">
+        <div class="flashcard-inner">
+          <div class="card-face card-front ${tClass}">
+            <span class="card-num">#${globalIdx + 1}</span>
+            <span class="topic-badge ${badgeClass}">${card.topic}</span>
+            <div class="question-label">Question</div>
+            <div class="question-text">${card.q}</div>
+            ${diagramFront}
+            <div class="hint">Tap to flip and reveal the answer</div>
+          </div>
+          <div class="card-face card-back ${tClass}">
+            <div class="answer-label">Answer</div>
+            <div class="answer-text">${card.a}</div>
+            ${diagramBack}
+            ${keywordsHTML}
+          </div>
+        </div>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+  });
+
+  // Update progress text
+  document.getElementById('progressText').textContent =
+    currentFilter === 'All'
+      ? `Showing all ${cards.length} flashcards`
+      : `Showing ${cards.length} ${currentFilter} flashcards`;
+
+  // Attach flip handlers
+  document.querySelectorAll('.flashcard').forEach(el => {
+    el.addEventListener('click', () => el.classList.toggle('flipped'));
+  });
+}
+
+function updateCounts() {
+  const topics = ['All', 'Cycles', 'Systems', 'Interactions', 'Diversity', 'Energy'];
+  topics.forEach(t => {
+    const count = t === 'All'
+      ? flashcardData.length
+      : flashcardData.filter(c => c.topic === t).length;
+    document.getElementById(`count-${t}`).textContent = count;
+  });
+}
+
+// Filter buttons
+document.getElementById('filterBar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.topic;
+  allFlipped = false;
+  document.getElementById('flipAllBtn').textContent = 'Flip All';
+  renderCards();
+});
+
+// Flip all
+document.getElementById('flipAllBtn').addEventListener('click', () => {
+  allFlipped = !allFlipped;
+  document.querySelectorAll('.flashcard').forEach(el => {
+    if (allFlipped) el.classList.add('flipped');
+    else el.classList.remove('flipped');
+  });
+  document.getElementById('flipAllBtn').textContent = allFlipped ? 'Unflip All' : 'Flip All';
+});
+
+// Shuffle
+document.getElementById('shuffleBtn').addEventListener('click', () => {
+  currentCards = [...currentCards].sort(() => Math.random() - 0.5);
+  allFlipped = false;
+  document.getElementById('flipAllBtn').textContent = 'Flip All';
+  renderCards();
+});
+
+// Init
+updateCounts();
+renderCards();
+</script>
+
+</body>
+</html>
